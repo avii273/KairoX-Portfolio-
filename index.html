@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio - Target | Saving | Spending</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#0f1115">
+</head>
+<body>
+  <div id="app">
+    <!-- TOP BAR -->
+    <header class="topbar">
+      <button id="menuBtn" class="icon-btn">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+      <h1 class="app-name">Portfolio</h1>
+      <div class="top-actions">
+        <button id="addBtn" class="icon-btn primary">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <button id="settingsBtn" class="icon-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 9 15a1.65 1.65 0 0 0-1-1.51V13a2 2 0 0 1 0-4v-.49c.294-.18.68-.33 1-.51A1.65 1.65 0 0 0 9 6.18l-.06-.06A2 2 0 0 1 11.77 3.3l.06.06A1.65 1.65 0 0 0 13.65 3.7 1.65 1.65 0 0 0 14.65 5.2V6a2 2 0 0 1 0 4v.49c.32.18.68.33 1 .51Z"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- HAMBURGER MENU DRAWER -->
+    <div id="overlay" class="overlay"></div>
+    <aside id="drawer" class="drawer">
+      <div class="drawer-head">
+        <h2>Menu</h2>
+        <button id="closeDrawer" class="icon-btn small">✕</button>
+      </div>
+      <div class="drawer-body">
+        <div class="menu-section">
+          <div class="menu-row">
+            <span>Dark mode</span>
+            <label class="switch">
+              <input type="checkbox" id="darkToggle">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+        <div class="menu-section">
+          <p class="section-label">Themes</p>
+          <div class="themes">
+            <button class="theme-dot active" data-theme="ocean" style="--c:#3B82F6" title="Ocean Blue"></button>
+            <button class="theme-dot" data-theme="forest" style="--c:#10B981" title="Forest Green"></button>
+            <button class="theme-dot" data-theme="sunset" style="--c:#F97316" title="Sunset Orange"></button>
+            <button class="theme-dot" data-theme="midnight" style="--c:#8B5CF6" title="Midnight Purple"></button>
+          </div>
+        </div>
+        <div class="menu-section reset-section">
+          <button id="resetAllBtn" class="reset-btn">
+            <span>Reset All Data</span>
+          </button>
+          <p class="reset-hint">This will permanently erase all portfolios, history, and settings.</p>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main id="content"></main>
+
+    <!-- BOTTOM NAV -->
+    <nav class="bottom-nav">
+      <button data-tab="target" class="nav-item">
+        <span class="iconify nav-icon" data-icon="bx:target-lock"></span>
+        <span>Target portfolio</span>
+      </button>
+      <button data-tab="spending" class="nav-item">
+        <span class="iconify nav-icon" data-icon="arcticons:day-to-day-expenses"></span>
+        <span>Spending portfolio</span>
+      </button>
+      <button data-tab="saving" class="nav-item">
+        <span class="iconify nav-icon" data-icon="streamline-freehand:saving-piggy-bank"></span>
+        <span>Saving portfolio</span>
+      </button>
+    </nav>
+
+    <!-- MODALS -->
+    <div id="addChoiceModal" class="modal">
+      <div class="modal-box">
+        <h3>Add New Entry</h3>
+        <div class="choice-grid">
+          <button class="choice-card" data-choice="saving">
+            <div class="choice-icon" style="background:#10B98122; color:#10B981">💰</div>
+            <b>Saving</b><p>Add daily salary & saving</p>
+          </button>
+          <button class="choice-card" data-choice="spending">
+            <div class="choice-icon" style="background:#EF444422; color:#EF4444">💸</div>
+            <b>Spending</b><p>Add daily salary & spend</p>
+          </button>
+        </div>
+        <button class="close-modal">Cancel</button>
+      </div>
+    </div>
+
+    <div id="formModal" class="modal">
+      <div class="modal-box large">
+        <button class="close-modal top-close">✕</button>
+        <div id="formContent"></div>
+      </div>
+    </div>
+
+    <div id="settingsModal" class="modal">
+      <div class="modal-box large">
+        <button class="close-modal top-close">✕</button>
+        <h3>Settings</h3>
+        <div class="settings-tabs">
+          <button class="s-tab active" data-stab="target">Target Portfolio settings</button>
+          <button class="s-tab" data-stab="saving">Saving Portfolio settings</button>
+        </div>
+        <div id="settingsContent"></div>
+      </div>
+    </div>
+
+  </div>
+  <script src="script.js"></script>
+  <script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("./service-worker.js")
+        .then(() => console.log("KairoX Service Worker registered"))
+        .catch(error => console.error("Service Worker error:", error));
+    });
+  }
+</script>
+</body>
+</html>
