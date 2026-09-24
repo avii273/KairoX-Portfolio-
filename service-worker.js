@@ -1,4 +1,4 @@
-const CACHE_NAME = "kairox-portfolio-v1";
+const CACHE_NAME = "kairox-portfolio-v2";
 const APP_SHELL = [
   "./",
   "./index.html",
