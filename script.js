@@ -57,17 +57,14 @@ function fmt(n){
   return Number(n).toLocaleString('en-LK');
 }
 
-// Strip commas and convert to number
 function parseNum(str){
   if(typeof str === 'number') return str;
   if(!str) return 0;
   return Number(String(str).replace(/,/g, '')) || 0;
 }
 
-// Attach live thousand-separator formatting to an <input type="text">
 function attachNumberFormat(input){
   input.addEventListener('input', ()=>{
-    // keep only digits
     let raw = input.value.replace(/[^\d]/g, '');
     if(raw === ''){ input.value=''; return; }
     input.value = Number(raw).toLocaleString('en-LK');
@@ -150,11 +147,8 @@ function openForm(type){
       const tar = parseNum(document.getElementById('f_target').value);
       if(!sal || !sav || !tar) return alert('Fill all fields');
 
-      // Save saving entry (no target stored here)
       state.saving.entries.unshift({ salary:sal, saving:sav, date:new Date().toLocaleDateString() });
       state.saving.currentSaving += sav;
-
-      // The "Target" field ADDS to the Target Portfolio's current amount
       state.target.current = (state.target.current || 0) + tar;
 
       save(); formModal.classList.remove('open'); render();
@@ -271,15 +265,16 @@ function render(){
       `;
     } else {
       const totalSaved    = entries.reduce((a,b)=>a+b.saving,0);
+      const totalCurrent  = state.saving.currentSaving;
       const totalInvested = state.saving.currentInvesting;
-      const totalCombined = totalSaved + totalInvested;
+      const totalCombined = totalSaved + totalCurrent + totalInvested;
 
       content.innerHTML=`
         <div class="card"><h2 style="font-size:20px;font-weight:700">Saving Portfolio</h2>
           <div class="stat-grid" style="margin-top:14px">
-            <div class="stat"><small>Total (Saving + Investing)</small><b style="color:${acc}">LKR ${fmt(totalCombined)}</b></div>
-            <div class="stat"><small>Total Saved</small><b>LKR ${fmt(totalSaved)}</b></div>
-            <div class="stat"><small>Current Saving</small><b>LKR ${fmt(state.saving.currentSaving)}</b></div>
+            <div class="stat"><small>Total (Saving + Current + Investing)</small><b style="color:${acc}">LKR ${fmt(totalCombined)}</b></div>
+            <div class="stat"><small>Total Saved (log)</small><b>LKR ${fmt(totalSaved)}</b></div>
+            <div class="stat"><small>Current Saving</small><b>LKR ${fmt(totalCurrent)}</b></div>
             <div class="stat"><small>Investing</small><b>LKR ${fmt(totalInvested)}</b></div>
           </div>
         </div>
